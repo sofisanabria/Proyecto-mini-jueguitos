@@ -1,5 +1,4 @@
 import random
-
 Palabras = {}
 
 
@@ -23,20 +22,23 @@ def cargar_palabras():
 # Seleccionamos el modo de juego, que categoria se usará
 def Modo():
     modos = list(Palabras.keys())
+    modosF = []
     # Cargamos los modos en una lista y solo mostramos los que no esten como --Algo
     for i in modos:
         if '-' in i:
-            # Lo borramos si es un modo secreto
-            modos.remove(i)
+            # Salteamos si es modo secreto
             continue
-        # Le ponemos comillas
-        modos[modos.index(i)] = f'"{modos[modos.index(i)]}"'
-    cadena_modos = ' '.join(modos)
+        else:
+            # Le ponemos comillas
+            modosF.append(f'"{modos[modos.index(i)]}"')
+    cadena_modos = ' '.join(modosF)
     x = input(f'Elija el modo que quiere jugar:  {cadena_modos}\n')
     if x in Palabras.keys():
         PalabraSecreta = Palabras[x][random.randint(0, len(Palabras[x]) - 1)]
         print(f'La palabra tiene {len(PalabraSecreta)} letras')
         # print(f'Es: {PalabraSecreta}')
+    else:
+        return Modo()
     return PalabraSecreta
 
 
@@ -52,7 +54,7 @@ def Letras(palabra):
 
 
 # Creamos la horca con las partes del cuerpo
-def Partes(intento):
+def Partes(intento, errores):
     # Cuerpo entero
     cuerpo = ['0', '|', '/', '\\', '|', '/', '\\']
     actual = [' ', ' ', ' ', ' ', ' ', ' ', ' ']
@@ -60,7 +62,8 @@ def Partes(intento):
     for i in range(intento - 1):
         actual[i] = cuerpo[i]
     # Se usa string f para armarlo con lo actual
-    horca = f'╔═════╗' \
+    # Se imprimen tambien los errores
+    horca = f'╔═════╗ Letras mal: {", ".join(errores)}' \
             f'\n║     {actual[0]}' \
             f'\n║    {actual[2]}{actual[1]}{actual[3]}' \
             f'\n║     {actual[4]}' \
@@ -83,9 +86,9 @@ def Esconder(Palabra, Letrass, Aciertos):
 
 
 # Cargamos toda la horca y la imprimimos
-def dibujar(Palabra, Letrass, Aciertos, intento):
+def dibujar(Palabra, Letrass, Aciertos, errores, intento):
     palabra_escondida = Esconder(Palabra, Letrass, Aciertos)
-    horca = Partes(intento)
+    horca = Partes(intento, errores)
     horca += f'\n╨\t\t{palabra_escondida}'
     print(horca)
 
@@ -97,16 +100,17 @@ def Juego():
     fallos = 7  # Total de fallos permitidos
     intentos = 1
     aciertos = []  # Guardamos las letras que seleccione bien
+    errores = []   # Guardamos las letras que ingrese mal
     while intentos <= fallos:
-        dibujar(PalabraSecret, letras, aciertos, intentos)
+        dibujar(PalabraSecret, letras, aciertos, errores, intentos)
         # Vemos si los aciertos son iguales a las letras, por si ganó
         if sorted(letras) == sorted(aciertos):
             # Usamos el break para salir del while y nos encargamos luego
             break
         # Modo de arriesgar
-        entrada = input('Ingrese una letra o escriba "arriesgar": ')
+        entrada = input('Ingrese una letra o escriba "arriesgar": ').lower()
         if entrada == 'arriesgar':
-            entrada = input('Ingrese la palabra: ')
+            entrada = input('Ingrese la palabra: ').lower()
             # Si adivino completamos las letras y salimos
             if entrada == PalabraSecret:
                 aciertos = letras
@@ -116,12 +120,16 @@ def Juego():
                 intentos = fallos+1
                 break
         # Nos fijamos si la letra que ingreso es una de las que le falta y aun no la adivino
-        if entrada in letras and entrada not in aciertos:
-            aciertos.append(entrada)
+        if entrada in letras:
+            if entrada not in aciertos:
+                aciertos.append(entrada)
             continue
+        # Si no es correcta y es una letra se agrega a errores
+        elif len(entrada) == 1:
+            errores.append(entrada)
         intentos += 1
 
-    dibujar(PalabraSecret, letras, aciertos, intentos)
+    dibujar(PalabraSecret, letras, aciertos, errores, intentos)
     # Si los intentos no superan los fallos ganó
     if intentos <= fallos:
         print(f'Ganaste, te tomó {intentos} intento')
