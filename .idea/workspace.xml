@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c664e600-c4ce-46f8-8712-91db19fd6de0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Palabras.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Proyecto-mini-jueguitos.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Proyecto-mini-jueguitos.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ahorcado.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ahorcado.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Palabras.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Palabras.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,5 +73,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
