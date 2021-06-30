@@ -9,9 +9,11 @@ Pneumonoultramicroscopicsilicovolcanoconiosis
 Caleidoscopio
 Ovoviviparo
 
+-Frutas del congo
+aguacate
+
 -Facil
 Agua
--Medio
 Fruta
 Verdura
 Amarillo
@@ -21,7 +23,8 @@ hongo
 objeto
 pelea
 discutir
-
+-tilde
+áeééfe
 -Medio
 Diversion
 programacion
@@ -32,15 +35,12 @@ inteligente
 inspirado
 coleccion
 admiracion
+
 --Armando no lee esto
 Sombra ptazo
 
---Manu palabras
-Holi sofi
-Te amo
-Muchooo
 
--Test
+-Facil
 De
 Ver
 Claro
