@@ -1,4 +1,6 @@
 import os
+
+
 def crear():
     tabler = {}
     for i in range(9):
@@ -53,11 +55,9 @@ def Ganar(tablero):
     if diagonal2:
         if tablero[f'A3'] != ' ':
             return tablero[f'A3']
-    if ' ' in list(tablero.values()):
+    if ' ' not in list(tablero.values()):
         return 'empate'
     return ' '
-
-
 
 
 def Resultado(resultados):
@@ -69,14 +69,15 @@ def Resultado(resultados):
 
 def IniciarJuego():
     tablero = crear()
-    turno = 'x'
-    siguiente = 'o'
+    fichas = list(input('Ingrese las fichas juntas\n'))
+    turno = fichas[0]
+    siguiente = fichas[1]
     seguir = True
     while seguir:
         Imprimir(tablero)
         turno, siguiente = Preguntar(tablero, turno, siguiente)
         res = Ganar(tablero)
-        if res in ['x', 'o', 'Empate']:
+        if res in [fichas[0], fichas[1], 'empate']:
             seguir = False
     Imprimir(tablero)
     Resultado(res)
