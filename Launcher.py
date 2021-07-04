@@ -74,12 +74,24 @@ def CrearUsuario(Usuarios):
     return datos
 
 
+def Informacion():
+    print('Autores:\n')
+    integrantes = {"Manuel Buslón": 'manuelbuslon22@gmail.com', "Sofia Sanabria": 'sofia.sanabria@correo.ucu.edu.uy'}
+    for i in integrantes.keys():
+        print(f'Nombre: {i} - Contacto: {integrantes[i]}\n')
+    print('Por dudas o consultas consultas comuniquese a alguno de los correos anteriores')
+
+
 ListaUsuarios = CargarDatos()
 Ahorcado.cargar_palabras()
+print('Bienvenid@ a el menú de juegos')
 opcion = input('Desea loguarse (l) o crear usuario (c)?\n').lower()
 if opcion == 'l':
     UsuarioActual = SeleccionarUsuario()
 else:
     UsuarioActual = CrearUsuario(ListaUsuarios)
 MostrarLog(UsuarioActual)
+x = input('¿Desea ver informacion del programa?: ').lower()
+if 'si' in x:
+    Informacion()
 Eleccion(UsuarioActual)
