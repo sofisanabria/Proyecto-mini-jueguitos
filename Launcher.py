@@ -5,10 +5,10 @@ import json
 
 def Eleccion(User, eleccion=''):
     if eleccion == '':
-        eleccion = input('Ingrese el juego que quiere jugar (tateti o ahorcado, otro para salir)\n').lower()
+        eleccion = input('Ingrese el nombre juego que quiere jugar (tateti o ahorcado, otro para salir)\n').lower()
     else:
         nuevojuego = input('Presione enter para seguir o el nombre del juego\n').lower()
-        if nuevojuego == '':
+        if nuevojuego != '':
             eleccion = nuevojuego
     if 'tateti' in eleccion:
         User[eleccion]["victorias"] += Tateti.IniciarJuego(User["nombre"])

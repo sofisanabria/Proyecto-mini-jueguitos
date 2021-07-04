@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c664e600-c4ce-46f8-8712-91db19fd6de0" name="Default Changelist" comment="Holi">
+      <change afterPath="$PROJECT_DIR$/Palabras/Viky.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ahorcado.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ahorcado.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manual de usuario.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Manual de usuario.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Palabras/Medio.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Palabras/Medio.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tateti.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tateti.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Usuarios.json" beforeDir="false" afterPath="$PROJECT_DIR$/Usuarios.json" afterDir="false" />
     </list>

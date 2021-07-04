@@ -10,7 +10,8 @@ def cargar_palabras():
     for tema in contenido:
         if tema.endswith('.txt'):
             file = open(f'{carpeta}{tema}', "r")
-            Palabras[tema.replace('.txt', '')] = file.read().split()
+            datos = file.read().replace('\n\n', '\n')
+            Palabras[tema.replace('.txt', '')] = datos.split()
             file.close()
 
 

@@ -73,7 +73,11 @@ def Resultado(resultados, datos):
 def IniciarJuego(nombre, victorias=0):
     global res
     tablero = crear()
-    fichas = input(f'Ingrese la ficha de {nombre} seguida de la ficha del invitado\n').split()
+    fichas = ['', '']
+    while len(fichas[0]) != 1 or len(fichas[1]) != 1:
+        fichas = input(f'Ingrese la ficha de {nombre} seguida de la ficha del invitado\n').split()
+        if len(fichas) != 2:
+            fichas = input(f'Ingrese la ficha de {nombre} seguida de la ficha del invitado\n').split()
     datos = {fichas[0]: nombre, fichas[1]: 'el invitado'}
     primero = random.randint(0, 1)
     print(f'Primero le toca a {"el invitado" if primero else nombre}')
