@@ -67,15 +67,16 @@ def Resultado(resultados, datos):
         print(f'El ganador es {datos[resultados]}')
         if datos[resultados] != 'el invitado':
             return 1
-    return
+    return 0
 
 
 def IniciarJuego(nombre, victorias=0):
+    global res
     tablero = crear()
     fichas = input(f'Ingrese la ficha de {nombre} seguida de la ficha del invitado\n').split()
     datos = {fichas[0]: nombre, fichas[1]: 'el invitado'}
     primero = random.randint(0, 1)
-    print(f'Primero le toca al {nombre if primero else "invitado"}')
+    print(f'Primero le toca a {"el invitado" if primero else nombre}')
     turno = fichas[primero]
     siguiente = fichas[1-primero]
     seguir = True
@@ -86,4 +87,4 @@ def IniciarJuego(nombre, victorias=0):
         if res in [fichas[0], fichas[1], 'empate']:
             seguir = False
     Imprimir(tablero)
-    Resultado(res, datos)
+    return Resultado(res, datos)

@@ -8,7 +8,7 @@ def Eleccion(User, eleccion=''):
         eleccion = input('Ingrese el juego que quiere jugar (tateti o ahorcado, otro para salir)\n').lower()
     else:
         nuevojuego = input('Presione enter para seguir o el nombre del juego\n').lower()
-        if nuevojuego != '':
+        if nuevojuego == '':
             eleccion = nuevojuego
     if 'tateti' in eleccion:
         User[eleccion]["victorias"] += Tateti.IniciarJuego(User["nombre"])
@@ -19,7 +19,7 @@ def Eleccion(User, eleccion=''):
     User[eleccion]["jugadas"] += 1
     MostrarStats(User)
     GuardarDatos(User)
-    Eleccion(User)
+    Eleccion(User, eleccion)
 
 
 def GuardarDatos(User, Lista=None):
@@ -36,7 +36,7 @@ def GuardarDatos(User, Lista=None):
 
 
 def MostrarLog(datos):
-    print(f'Logueado como: {datos["nombre"]}')
+    print(f'Logueado como: {datos["nombre"]}\n')
     MostrarStats(datos)
 
 
@@ -53,8 +53,6 @@ def MostrarStats(datos):
 def CargarDatos():
     f = open("Usuarios.json", )
     Usuarios = json.load(f)
-    if not Usuarios:
-        CrearUsuario(Usuarios)
     return Usuarios
 
 
@@ -67,7 +65,7 @@ def SeleccionarUsuario():
 
 
 def CrearUsuario(Usuarios):
-    nombre = input('Ingrese el nombre de usuario\n').lower()
+    nombre = input('Cree un nombre de usuario\n').lower()
     datos = {"nombre": nombre, "ahorcado": {"jugadas": 0, "victorias": 0}, "tateti": {"jugadas": 0, "victorias": 0}}
     Usuarios.append(datos)
     GuardarDatos(datos, Usuarios)
@@ -75,23 +73,30 @@ def CrearUsuario(Usuarios):
 
 
 def Informacion():
-    print('Autores:\n')
     integrantes = {"Manuel Buslón": 'manuelbuslon22@gmail.com', "Sofia Sanabria": 'sofia.sanabria@correo.ucu.edu.uy'}
+    autores = []
     for i in integrantes.keys():
-        print(f'Nombre: {i} - Contacto: {integrantes[i]}\n')
-    print('Por dudas o consultas consultas comuniquese a alguno de los correos anteriores')
+        autores.append(f'Nombre: {i} - Contacto: {integrantes[i]}')
+    print('-'*len(max(autores, key=len)))
+    print('Autores:')
+    print('\n'.join(autores))
+    print('-' * len(max(autores, key=len)))
+    print('Por dudas o consultas consultas comuniquese a alguno de los correos anteriores\n')
 
 
 ListaUsuarios = CargarDatos()
 Ahorcado.cargar_palabras()
 print('Bienvenid@ a el menú de juegos')
-opcion = input('Desea loguarse (l) o crear usuario (c)?\n').lower()
-if opcion == 'l':
-    UsuarioActual = SeleccionarUsuario()
-else:
+if not ListaUsuarios:
     UsuarioActual = CrearUsuario(ListaUsuarios)
+else:
+    opcion = input('Desea loguarse (l) o crear usuario (c)?\n').lower()
+    if opcion == 'l':
+        UsuarioActual = SeleccionarUsuario()
+    else:
+        UsuarioActual = CrearUsuario(ListaUsuarios)
 MostrarLog(UsuarioActual)
 x = input('¿Desea ver informacion del programa?: ').lower()
 if 'si' in x:
     Informacion()
-Eleccion(UsuarioActual)
+Eleccion(UsuarioActual, '')
