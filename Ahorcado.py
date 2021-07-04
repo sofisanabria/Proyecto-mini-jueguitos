@@ -1,22 +1,17 @@
+import os
 import random
 Palabras = {}
 
 
 # Funcion que carga las palabras que se usarán
 def cargar_palabras():
-    file = open("Palabras.txt", "r")
-    guardar = ''
-    for line in file:
-        li = line.strip()
-        if '-' in li:  # Si encuentra un guion sabe que entramos a otra categoria como: facil
-            guardar = li[1:]
-            if guardar not in Palabras.keys():
-                Palabras[guardar] = []  # Agrega la categoria al diccionario de palabras
-            continue
-        if li == '':
-            continue
-        Palabras[guardar].append(li.lower())  # Agrega la palabra a una lista con esa llave
-    file.close()
+    carpeta = 'Palabras/'
+    contenido = os.listdir(carpeta)
+    for tema in contenido:
+        if tema.endswith('.txt'):
+            file = open(f'{carpeta}{tema}', "r")
+            Palabras[tema.replace('.txt', '')] = file.read().split()
+            file.close()
 
 
 # Seleccionamos el modo de juego, que categoria se usará
@@ -34,7 +29,7 @@ def Modo():
     cadena_modos = ' '.join(modosF)
     x = input(f'Elija el modo que quiere jugar:  {cadena_modos}\n')
     if x in Palabras.keys():
-        PalabraSecreta = Palabras[x][random.randint(0, len(Palabras[x]) - 1)]
+        PalabraSecreta = random.choice(Palabras[x]).lower()
         print(f'La palabra tiene {len(PalabraSecreta)} letras')
         # print(f'Es: {PalabraSecreta}')
     else:
@@ -126,18 +121,18 @@ def Juego():
             continue
         # Si no es correcta y es una letra se agrega a errores
         elif len(entrada) == 1:
+            if entrada in errores:
+                continue
             errores.append(entrada)
         intentos += 1
 
     dibujar(PalabraSecret, letras, aciertos, errores, intentos)
+    devolver = 0
     # Si los intentos no superan los fallos ganó
     if intentos <= fallos:
         print(f'Ganaste, te tomó {intentos} intento')
+        devolver = 1
     else:
         print('Perdiste')
     print(f'La palabra era {PalabraSecret}')
-
-
-cargar_palabras()
-while True:
-    Juego()
+    return devolver

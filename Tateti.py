@@ -1,4 +1,5 @@
 import os
+import random
 
 
 def crear():
@@ -9,7 +10,6 @@ def crear():
 
 
 def Imprimir(tablero):
-    os.system('cls')
     tablerito = '    A   B   C\n' \
                 '  ╔═══╦═══╦═══╗\n' \
                 '1 ║ {} ║ {} ║ {} ║\n' \
@@ -60,18 +60,24 @@ def Ganar(tablero):
     return ' '
 
 
-def Resultado(resultados):
-    print(f'El ganador es {resultados}')
-    repetir = input('Desea jugar denuevo? ("si" para continuar)\n')
-    if repetir.lower() == 'si':
-        IniciarJuego()
+def Resultado(resultados, datos):
+    if resultados == 'empate':
+        print('El resultado es empate')
+    else:
+        print(f'El ganador es {datos[resultados]}')
+        if datos[resultados] != 'el invitado':
+            return 1
+    return
 
 
-def IniciarJuego():
+def IniciarJuego(nombre, victorias=0):
     tablero = crear()
-    fichas = list(input('Ingrese las fichas juntas\n'))
-    turno = fichas[0]
-    siguiente = fichas[1]
+    fichas = input(f'Ingrese la ficha de {nombre} seguida de la ficha del invitado\n').split()
+    datos = {fichas[0]: nombre, fichas[1]: 'el invitado'}
+    primero = random.randint(0, 1)
+    print(f'Primero le toca al {nombre if primero else "invitado"}')
+    turno = fichas[primero]
+    siguiente = fichas[1-primero]
     seguir = True
     while seguir:
         Imprimir(tablero)
@@ -80,7 +86,4 @@ def IniciarJuego():
         if res in [fichas[0], fichas[1], 'empate']:
             seguir = False
     Imprimir(tablero)
-    Resultado(res)
-
-
-IniciarJuego()
+    Resultado(res, datos)
