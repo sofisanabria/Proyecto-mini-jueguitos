@@ -1,3 +1,5 @@
+import os
+
 import Tateti
 import Ahorcado
 import json
@@ -7,7 +9,7 @@ def Eleccion(User, eleccion=''):
     if eleccion == '':
         eleccion = input('Ingrese el nombre juego que quiere jugar (tateti o ahorcado, otro para salir)\n').lower()
     else:
-        nuevojuego = input('Presione enter para seguir o el nombre del juego\n').lower()
+        nuevojuego = input('Presione enter para seguir, el nombre del juego u otro para salir\n').lower()
         if nuevojuego != '':
             eleccion = nuevojuego
     if 'tateti' in eleccion:
@@ -51,7 +53,11 @@ def MostrarStats(datos):
 
 
 def CargarDatos():
-    f = open("Usuarios.json", )
+    if os.path.isfile("Usuarios.json"):
+        f = open("Usuarios.json", )
+    else:
+        f = open("Usuarios.json", "wr")
+        f.write('[]')
     Usuarios = json.load(f)
     return Usuarios
 
@@ -61,6 +67,7 @@ def SeleccionarUsuario():
     for i in ListaUsuarios:
         if i["nombre"] == eleccion:
             return i
+    print('No se encontró el usuario')
     return SeleccionarUsuario()
 
 
@@ -90,11 +97,16 @@ print('Bienvenid@ a el menú de juegos')
 if not ListaUsuarios:
     UsuarioActual = CrearUsuario(ListaUsuarios)
 else:
-    opcion = input('Desea loguarse (l) o crear usuario (c)?\n').lower()
-    if opcion == 'l':
-        UsuarioActual = SeleccionarUsuario()
-    else:
-        UsuarioActual = CrearUsuario(ListaUsuarios)
+    while True:
+        opcion = input('Desea loguarse (l) o crear usuario (c)?\n').lower()
+        if opcion == 'l':
+            UsuarioActual = SeleccionarUsuario()
+            break
+        elif opcion == 'c':
+            UsuarioActual = CrearUsuario(ListaUsuarios)
+            break
+        else:
+            print('Ingrese una opción valida')
 MostrarLog(UsuarioActual)
 x = input('¿Desea ver informacion del programa?: ').lower()
 if 'si' in x:

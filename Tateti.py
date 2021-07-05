@@ -24,7 +24,7 @@ def Imprimir(tablero):
 
 
 def Preguntar(tablero, turno, siguiente):
-    entrada = input('¿Dónde quiere colocar su ficha?\n')
+    entrada = ''.join(sorted(input('¿Dónde quiere colocar su ficha?\n').upper(), reverse = True))
     if entrada in list(tablero.keys()):
         if tablero[entrada] == ' ':
             tablero[entrada] = turno
@@ -38,23 +38,15 @@ def Preguntar(tablero, turno, siguiente):
 
 def Ganar(tablero):
     for i in ['A', 'B', 'C']:
-        vertical = tablero[f'{i}1'] == tablero[f'{i}2'] == tablero[f'{i}3']
-        if vertical:
-            if tablero[f'{i}1'] != ' ':
-                return tablero[f'{i}1']
+        if tablero[f'{i}1'] == tablero[f'{i}2'] == tablero[f'{i}3'] != ' ':
+            return tablero[f'{i}1']
     for i in [1, 2, 3]:
-        horizontal = tablero[f'A{i}'] == tablero[f'B{i}'] == tablero[f'C{i}']
-        if horizontal:
-            if tablero[f'A{i}'] != ' ':
-                return tablero[f'A{i}']
-    diagonal1 = tablero['A1'] == tablero['B2'] == tablero['C3']
-    if diagonal1:
-        if tablero[f'A1'] != ' ':
-            return tablero[f'A1']
-    diagonal2 = tablero['A3'] == tablero['B2'] == tablero['C1']
-    if diagonal2:
-        if tablero[f'A3'] != ' ':
-            return tablero[f'A3']
+        if tablero[f'A{i}'] == tablero[f'B{i}'] == tablero[f'C{i}'] != ' ':
+            return tablero[f'A{i}']
+    if tablero['A1'] == tablero['B2'] == tablero['C3'] != ' ':
+        return tablero[f'A1']
+    if tablero['A3'] == tablero['B2'] == tablero['C1'] != ' ':
+        return tablero[f'A3']
     if ' ' not in list(tablero.values()):
         return 'empate'
     return ' '
@@ -71,7 +63,6 @@ def Resultado(resultados, datos):
 
 
 def IniciarJuego(nombre, victorias=0):
-    global res
     tablero = crear()
     fichas = ['', '']
     while len(fichas[0]) != 1 or len(fichas[1]) != 1:
